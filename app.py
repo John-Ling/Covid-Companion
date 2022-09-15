@@ -8,33 +8,25 @@ Information sourced from:
 https://www.worldometers.info/coronavirus/
 https://www.who.int/health-topics/coronavirus#tab=tab_1
 """
-import os
-import time
+# install with pip
+from PIL import ImageTk, Image
+from bs4 import BeautifulSoup
+import threading
+import requests
 
+import time
 
 from tkinter import *
 import tkinter.font as tkFont
 
-# install with pip
-from PIL import ImageTk, Image
-from bs4 import BeautifulSoup
-from dotenv import load_dotenv
-import threading
-import requests
-
+from config import API_TOKEN
 from bot import Bot
 
 
 class App():
 
     def __init__(self):
-        load_dotenv()
-        self.envPath = os.path.abspath('token.env')
-        load_dotenv(dotenv_path='Covid_Companion/token.env')
-
-        self.TOKEN = os.getenv("TOKEN")
-        self.bot = Bot(self.TOKEN)
-
+        self.bot = Bot(API_TOKEN)
         self.reply = None
         self.window = Tk()
         self.window.configure(bg='#F5F5F5')

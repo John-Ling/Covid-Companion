@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from wit import Wit
 import requests
 
 class Bot:
