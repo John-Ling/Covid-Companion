@@ -51,7 +51,7 @@ To see more go to shorturl.at/bopDW''')
 You cannot contract Covid-19 from your pets
 
 Although one dog in Hong Kong caught a "low-level infection",
-there is now evidence to suggest you can catch the disease from
+there is no evidence to suggest you can catch the disease from
 your pets dogs, cats or otherwise.
 
 To see more go to shorturl.at/bopDW''')

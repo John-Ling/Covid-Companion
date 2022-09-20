@@ -14,6 +14,51 @@ class Bot:
 
         return msg
 
+    def process_message(self, msg):
+        global ans
+        try:
+            # extract values from entities
+            entities = msg['entities']
+            myth = self.get_values(entities, 'myths')
+            print(myth)
+
+            intent = self.get_values(entities, 'intent')
+            print(intent)
+
+            country = self.get_values(entities, 'location')
+            if (country != None):
+                country = country.capitalize()  # Capitalize first letter
+            print(country)
+
+            info = self.get_values(entities, 'info')
+            print(info)
+
+            if intent:
+                if (intent == 'get_infections' or intent == 'get_deaths' or intent == 'get_recoveries'):
+                    ans = self.get_stats(intent, country)
+                elif (intent == 'explain_disease'):
+                    ans = self.explain_disease()
+                elif (intent == 'get_precautions'):
+                    ans = self.get_precautions()
+                elif (intent == 'get_not_do'):
+                    ans = self.get_not_do()
+            elif myth:
+                from myths import debunk_myth
+                ans = debunk_myth(myth)
+
+            elif info:
+                from info import get_info
+                ans = get_info(info)
+
+            else:
+                ans = ("Sorry I couldn't get that")
+
+        except Exception as e:
+            print(e)
+            ans = "An error occurred"
+
+        return ans
+
     def get_values(self, entities, entity):
 
         if entity not in entities:  # returns none if unknown entity
@@ -101,54 +146,5 @@ began in Wuhan, China in December 2019.''')
 
         except IndexError:  # attempting to access the stats of a page that doesn't exist should throw an error
             ans = "There are no cases of Covid-19 in " + country
-
-        return ans
-
-    def process_message(self, msg):
-        global ans
-        try:
-            # extract values from entities
-            entities = msg['entities']
-            myth = self.get_values(entities, 'myths')
-            print(myth)
-
-            intent = self.get_values(entities, 'intent')
-            print(intent)
-
-            country = self.get_values(entities, 'location')
-            if (country != None):
-                country = country.capitalize()  # Capitalize first letter
-            print(country)
-
-            info = self.get_values(entities, 'info')
-            print(info)
-
-            if intent:
-                if (intent == 'get_infections' or intent == 'get_deaths' or intent == 'get_recoveries'):
-                    ans = self.get_stats(intent, country)
-
-                elif (intent == 'explain_disease'):
-                    ans = self.explain_disease()
-
-                elif (intent == 'get_precautions'):
-                    ans = self.get_precautions()
-
-                elif (intent == 'get_not_do'):  # its literally midnight my brain is not working
-                    ans = self.get_not_do()
-
-            elif myth:
-                from myths import debunk_myth
-                ans = debunk_myth(myth)
-
-            elif info:
-                from info import get_info
-                ans = get_info(info)
-
-            else:
-                ans = ("Sorry I couldn't get that")
-
-        except Exception as e:
-            print(e)
-            ans = "An error occurred"
 
         return ans
