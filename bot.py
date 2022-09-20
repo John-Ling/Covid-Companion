@@ -74,7 +74,6 @@ began in Wuhan, China in December 2019.''')
         else:
             URL = base_URL
 
-        # more sub-par code
         statsPage = requests.get(URL)
 
         statsContent = BeautifulSoup(statsPage.content, 'html.parser')
