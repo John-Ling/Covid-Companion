@@ -32,39 +32,6 @@ def main():
             country = country.capitalize()  # Capitalize first letter
         print(country)
 
-        # if intent:
-        #     if (intent == 'get_infections' or intent == 'get_deaths' or intent == 'get_recoveries'):
-        #         ans = function()
-        #     elif (intent == 'explain_disease'):
-        #         ans = function()
-        #     elif (intent == 'get_precautions'):
-        #         ans = function()
-        #     elif (intent == 'get_not_do'):
-        #         ans = function()
-        #     elif myth:
-        #         ans = function()
-        #     elif info:
-        #         ans = function()
-        #     else:
-        #         ans = ("Sorry I couldn't get that")
-        
-def parse_entities(data):
-    return data['info:info'][0]['value']
-
-def get_values(entities, entity):
-        if entity not in entities:  # returns none if unknown entity
-            return None
-
-        value = entities[entity][0]['value']  # get value from Wit response
-        print(f"Value: {value}")
-        if not value:
-            return None
-
-        if isinstance(value, dict) == True:
-            return value['value']
-        else:
-            return value
-
 def parse_location_test():
     data = {'text': 'How many are dead in india', 'intents': [{'id': '165231897808831', 'name': 'get_deaths', 'confidence': 0.9206}], 'entities': {'wit$location:location': [{'id': '946933389103387', 'name': 'wit$location', 'role': 'location', 'start': 21, 'end': 26, 'body': 'india'
 , 'confidence': 0.999, 'entities': [], 'resolved': {'values': [{'name': 'India', 'domain': 'country', 'coords': {'lat': 22, 'long': 79}, 'timezone': 'Asia/Kolkata', 'external': {'geonames': '1269750', 'wikidata': 'Q668', 'wikipedia': 'India'}, 'attributes': {}}, {'name':

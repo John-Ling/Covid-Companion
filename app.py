@@ -105,8 +105,6 @@ class App():
                 news = self.display_news()
                 news = Label(self.window, text=news, font=self.newsFont)
                 news.place(relx=1, x=-100, y=360, anchor=E)
-            else:
-                pass
 
     def process(self, query):  # get input from entry box and messages wit ai
         global reply
