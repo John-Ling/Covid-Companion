@@ -14,24 +14,24 @@ class Bot:
 
         return msg
 
-    def process_message(self, msg):
+    def process_message(self, response):
         global ans
         try:
-            # extract values from entities
-            entities = msg['entities']
-            myth = self.get_values(entities, 'myths')
-            print(myth)
+            entities = response['entities']
 
-            intent = self.get_values(entities, 'intent')
-            print(intent)
+            _get_intent = lambda response: response['intents'][0]['name'] if len(response['intents']) > 0 else None
+            intent = _get_intent(response)
 
-            country = self.get_values(entities, 'location')
+            _get_myth = lambda entities: entities['myths:myths'][0]['value'] if 'myths:myths' in entities else None
+            myth = _get_myth(entities)
+
+            _get_info = lambda entities: entities['info:info'][0]['value'] if 'info:info' in entities else None
+            info = _get_info(entities)
+
+            _get_country = lambda entities: entities['wit$location:location'][0]['resolved']['values'][0]['name'] if 'wit$location:location' in entities else None
+            country = _get_country(entities)
             if (country != None):
-                country = country.capitalize()  # Capitalize first letter
-            print(country)
-
-            info = self.get_values(entities, 'info')
-            print(info)
+                country = country.capitalize()
 
             if intent:
                 if (intent == 'get_infections' or intent == 'get_deaths' or intent == 'get_recoveries'):
@@ -58,21 +58,6 @@ class Bot:
             ans = "An error occurred"
 
         return ans
-
-    def get_values(self, entities, entity):
-
-        if entity not in entities:  # returns none if unknown entity
-            return None
-
-        value = entities[entity][0]['value']  # get value from Wit response
-
-        if not value:
-            return None
-
-        if isinstance(value, dict) == True:
-            return value['value']
-        else:
-            return value
 
     def get_precautions(self):
         global ans

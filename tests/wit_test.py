@@ -1,9 +1,9 @@
 from wit import Wit
-from config import API_KEY
+from config import API_TOKEN
 # tests to make requests to Wit's API and parse the results for intents, locations and named entities
 
 def main():
-    client = Wit(API_KEY)
+    client = Wit(API_TOKEN)
     while True:
         query = str(input("Enter query: "))
         response = client.message(query)
@@ -12,9 +12,8 @@ def main():
         #print(entities)
 
         #intent = response['intents'][0]['name']
-        #print(intent)
+        #print(inten t)
 
-        print(response['intents'])
         _get_intents = lambda response: response['intents'][0]['name'] if len(response['intents']) > 0 else None
         intents = _get_intents(response)
         print(intents)
